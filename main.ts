@@ -1,68 +1,5 @@
-function robot_Indietro () {
-    if (controllo != 21) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
-        controllo = 21
-        basic.showLeds(`
-            . . # . .
-            . . # . .
-            # . # . #
-            . # # # .
-            . . # . .
-            `)
-    }
-}
-function robot_sinistra () {
-    if (controllo != 68) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocita)
-        controllo = 68
-        basic.showLeds(`
-            . . # . .
-            . . . # .
-            # # # # #
-            . . . # .
-            . . # . .
-            `)
-    }
-}
-function robot_destra () {
-    if (controllo != 67) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
-        controllo = 67
-        basic.showLeds(`
-            . . # . .
-            . # . . .
-            # # # # #
-            . # . . .
-            . . # . .
-            `)
-    }
-}
-function robot_ShiftSinistra () {
-    if (controllo != 13) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
-        controllo = 13
-        basic.showLeds(`
-            . . # . .
-            . . . # .
-            # # # . #
-            . . . # .
-            . . # . .
-            `)
-    }
-}
-function robot_Avanti () {
+function robot_Avanti() {
+    
     if (controllo != 70) {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
         mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
@@ -77,8 +14,84 @@ function robot_Avanti () {
             . . # . .
             `)
     }
+    
 }
-function robot_ShiftDestra () {
+
+function robot_destra() {
+    
+    if (controllo != 67) {
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocitaRotazione)
+        controllo = 67
+        basic.showLeds(`
+            . . # . .
+            . # . . .
+            # # # # #
+            . # . . .
+            . . # . .
+            `)
+    }
+    
+}
+
+function robot_Ferma() {
+    
+    if (controllo != 0) {
+        controllo = 0
+        mecanumRobotV2.state()
+        basic.showLeds(`
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            `)
+    }
+    
+}
+
+function robot_sinistra() {
+    
+    if (controllo != 68) {
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocitaRotazione)
+        controllo = 68
+        basic.showLeds(`
+            . . # . .
+            . . . # .
+            # # # # #
+            . . . # .
+            . . # . .
+            `)
+    }
+    
+}
+
+function robot_ShiftSinistra() {
+    
+    if (controllo != 13) {
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocita)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
+        controllo = 13
+        basic.showLeds(`
+            . . # . .
+            . . . # .
+            # # # . #
+            . . . # .
+            . . # . .
+            `)
+    }
+    
+}
+
+function robot_ShiftDestra() {
+    
     if (controllo != 22) {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
         mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
@@ -93,15 +106,34 @@ function robot_ShiftDestra () {
             . . # . .
             `)
     }
+    
 }
+
+function robot_Indietro() {
+    
+    if (controllo != 21) {
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
+        controllo = 21
+        basic.showLeds(`
+            . . # . .
+            . . # . .
+            # . # . #
+            . # # # .
+            . . # . .
+            `)
+    }
+    
+}
+
 let controllo = 0
 let velocita = 0
 velocita = 50
-controllo = 0
-serial.redirectToUSB()
+let velocitaRotazione = 20
 irRemote.connectInfrared(DigitalPin.P0)
-basic.forever(function () {
-    serial.writeValue("tasto", irRemote.returnIrButton())
+basic.forever(function on_forever() {
     if (irRemote.returnIrButton() == 70) {
         robot_Avanti()
     } else if (irRemote.returnIrButton() == 21) {
@@ -115,16 +147,7 @@ basic.forever(function () {
     } else if (irRemote.returnIrButton() == 22) {
         robot_ShiftSinistra()
     } else {
-        if (controllo != 0) {
-            controllo = 0
-            mecanumRobotV2.state()
-            basic.showLeds(`
-                . . . . .
-                . . # . .
-                . # # # .
-                . . # . .
-                . . . . .
-                `)
-        }
+        robot_Ferma()
     }
+    
 })
