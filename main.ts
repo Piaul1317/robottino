@@ -4,11 +4,11 @@ function destra_avanti () {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
         controllo = 25
         basic.showLeds(`
-            . . # # #
-            . . . # #
-            . . # . #
-            . # . . .
-            # . . . .
+            . . . . #
+            . . . # .
+            # . # . .
+            # # . . .
+            # # # . .
             `)
     }
 }
@@ -91,11 +91,11 @@ function sinistra_indietro () {
         mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
         controllo = 94
         basic.showLeds(`
-            . . . . #
-            . . . # .
-            # . # . .
-            # # . . .
-            # # # . .
+            . . # # #
+            . . . # #
+            . . # . #
+            . # . . .
+            # . . . .
             `)
     }
 }
@@ -105,11 +105,11 @@ function destra_indietro () {
         mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
         controllo = 28
         basic.showLeds(`
-            # . . . .
-            . # . . .
-            . . # . #
-            . . . # #
-            . . # # #
+            # # # . .
+            # # . . .
+            # . # . .
+            . . . # .
+            . . . . #
             `)
     }
 }
@@ -119,11 +119,11 @@ function sinistra_avanti () {
         mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
         controllo = 12
         basic.showLeds(`
-            # # # . .
-            # # . . .
-            # . # . .
-            . . . # .
-            . . . . #
+            # . . . .
+            . # . . .
+            . . # . #
+            . . . # #
+            . . # # #
             `)
     }
 }

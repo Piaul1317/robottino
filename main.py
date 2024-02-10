@@ -1,15 +1,15 @@
-def destra_indietro():
+def destra_avanti():
     global controllo
-    if controllo != 28:
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.BACK, velocita)
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.BACK, velocita)
-        controllo = 28
+    if controllo != 25:
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
+        controllo = 25
         basic.show_leds("""
-            . . . . #
-            . . . # .
-            # . # . .
-            # # . . .
-            # # # . .
+            . . # # #
+            . . . # #
+            . . # . #
+            . # . . .
+            # . . . .
             """)
 def robot_Avanti():
     global controllo
@@ -41,44 +41,6 @@ def robot_destra():
             . # . . .
             . . # . .
             """)
-def robot_Ferma():
-    global controllo
-    if controllo != 0:
-        controllo = 0
-        mecanumRobotV2.state()
-        basic.show_leds("""
-            . . . . .
-            . . # . .
-            . # # # .
-            . . # . .
-            . . . . .
-            """)
-def sinistra_indietro():
-    global controllo
-    if controllo != 94:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        controllo = 94
-        basic.show_leds("""
-            # . . . .
-            . # . . .
-            . . # . #
-            . . . # #
-            . . # # #
-            """)
-def destra_avanti():
-    global controllo
-    if controllo != 25:
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
-        controllo = 25
-        basic.show_leds("""
-            . . # # #
-            . . . # #
-            . . # . #
-            . # . . .
-            # . . . .
-            """)
 def derapata_sinistra():
     global controllo
     if controllo != 90:
@@ -91,6 +53,70 @@ def derapata_sinistra():
             # . # # #
             . . . . .
             . . . . .
+            """)
+def robot_Ferma():
+    global controllo
+    if controllo != 0:
+        controllo = 0
+        mecanumRobotV2.state()
+        basic.show_leds("""
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            """)
+def derapata_destra():
+    global controllo
+    if controllo != 8:
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
+        controllo = 8
+        basic.show_leds("""
+            # . # # #
+            # # . . #
+            # # # . #
+            . . . . .
+            . . . . .
+            """)
+def sinistra_indietro():
+    global controllo
+    if controllo != 94:
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.BACK, velocita)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.BACK, velocita)
+        controllo = 94
+        basic.show_leds("""
+            . . . . #
+            . . . # .
+            # . # . .
+            # # . . .
+            # # # . .
+            """)
+def destra_indietro():
+    global controllo
+    if controllo != 28:
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita)
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.BACK, velocita)
+        controllo = 28
+        basic.show_leds("""
+            # . . . .
+            . # . . .
+            . . # . #
+            . . . # #
+            . . # # #
+            """)
+def sinistra_avanti():
+    global controllo
+    if controllo != 12:
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.FORWARD, velocita)
+        controllo = 12
+        basic.show_leds("""
+            # # # . .
+            # # . . .
+            # . # . .
+            . . . # .
+            . . . . #
             """)
 def robot_sinistra():
     global controllo
@@ -122,19 +148,6 @@ def robot_ShiftSinistra():
             . . . # .
             . . # . .
             """)
-def derapata_destra():
-    global controllo
-    if controllo != 8:
-        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        controllo = 8
-        basic.show_leds("""
-            # . # # #
-            # # . . #
-            # # # . #
-            . . . . .
-            . . . . .
-            """)
 def robot_ShiftDestra():
     global controllo
     if controllo != 22:
@@ -164,19 +177,6 @@ def robot_Indietro():
             # . # . #
             . # # # .
             . . # . .
-            """)
-def sinistra_avanti():
-    global controllo
-    if controllo != 12:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        controllo = 12
-        basic.show_leds("""
-            # # # . .
-            # # . . .
-            # . # . .
-            . . . # .
-            . . . . #
             """)
 controllo = 0
 velocitaRotazione = 0
@@ -209,9 +209,9 @@ def on_forever():
     elif irRemote.return_ir_button() == 12:
         sinistra_avanti()
     elif irRemote.return_ir_button() == 94:
-        sinistra_indietro()
+        destra_indietro()
     elif irRemote.return_ir_button() == 28:
-        pass
+        sinistra_indietro()
     else:
         robot_Ferma()
 basic.forever(on_forever)
