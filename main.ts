@@ -1,3 +1,17 @@
+function destra_avanti () {
+    if (controllo != 25) {
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocita)
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
+        controllo = 25
+        basic.showLeds(`
+            . . # # #
+            . . . # #
+            . . # . #
+            . # . . .
+            # . . . .
+            `)
+    }
+}
 function robot_Avanti () {
     if (controllo != 70) {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
@@ -30,6 +44,20 @@ function robot_destra () {
             `)
     }
 }
+function derapata_sinistra () {
+    if (controllo != 90) {
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
+        controllo = 90
+        basic.showLeds(`
+            # # # . #
+            # . . # #
+            # . # # #
+            . . . . .
+            . . . . .
+            `)
+    }
+}
 function robot_Ferma () {
     if (controllo != 0) {
         controllo = 0
@@ -43,17 +71,59 @@ function robot_Ferma () {
             `)
     }
 }
-function derapata_sinistra () {
-    if (controllo != 90) {
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
-        controllo = 90
+function derapata_destra () {
+    if (controllo != 8) {
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocita)
+        controllo = 8
         basic.showLeds(`
             # . # # #
             # # . . #
             # # # . #
             . . . . .
             . . . . .
+            `)
+    }
+}
+function sinistra_indietro () {
+    if (controllo != 94) {
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
+        controllo = 94
+        basic.showLeds(`
+            . . . . #
+            . . . # .
+            # . # . .
+            # # . . .
+            # # # . .
+            `)
+    }
+}
+function destra_indietro () {
+    if (controllo != 28) {
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
+        controllo = 28
+        basic.showLeds(`
+            # . . . .
+            . # . . .
+            . . # . #
+            . . . # #
+            . . # # #
+            `)
+    }
+}
+function sinistra_avanti () {
+    if (controllo != 12) {
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocita)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
+        controllo = 12
+        basic.showLeds(`
+            # # # . .
+            # # . . .
+            # . # . .
+            . . . # .
+            . . . . #
             `)
     }
 }
@@ -86,20 +156,6 @@ function robot_ShiftSinistra () {
             # # # . #
             . . . # .
             . . # . .
-            `)
-    }
-}
-function derapata_destra () {
-    if (controllo != 8) {
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocita)
-        controllo = 8
-        basic.showLeds(`
-            # # # . #
-            # . . # #
-            # . # # #
-            . . . . .
-            . . . . .
             `)
     }
 }
@@ -160,6 +216,14 @@ basic.forever(function () {
         derapata_destra()
     } else if (irRemote.returnIrButton() == 8) {
         derapata_sinistra()
+    } else if (irRemote.returnIrButton() == 25) {
+        destra_avanti()
+    } else if (irRemote.returnIrButton() == 12) {
+        sinistra_avanti()
+    } else if (irRemote.returnIrButton() == 94) {
+        destra_indietro()
+    } else if (irRemote.returnIrButton() == 28) {
+        sinistra_indietro()
     } else {
         robot_Ferma()
     }
