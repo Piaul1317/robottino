@@ -4,11 +4,11 @@ function destra_avanti () {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita)
         controllo = 25
         basic.showLeds(`
-            . . . . #
-            . . . # .
-            # . # . .
-            # # . . .
-            # # # . .
+            . . # # #
+            . . . # #
+            . . # . #
+            . # . . .
+            # . . . .
             `)
     }
 }
@@ -58,6 +58,16 @@ function derapata_sinistra () {
             `)
     }
 }
+function decrementaVelocita () {
+    if (controllo != 101) {
+        velocita += -5
+        controllo = 101
+        if (velocita < 20) {
+            velocita = 20
+        }
+        basic.showString("" + velocita)
+    }
+}
 function robot_Ferma () {
     if (controllo != 0) {
         controllo = 0
@@ -85,17 +95,27 @@ function derapata_destra () {
             `)
     }
 }
+function incrementaVelocita () {
+    if (controllo != 100) {
+        velocita += 5
+        controllo = 100
+        if (velocita > 100) {
+            velocita = 100
+        }
+        basic.showString("" + velocita)
+    }
+}
 function sinistra_indietro () {
     if (controllo != 94) {
         mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita)
         mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita)
         controllo = 94
         basic.showLeds(`
-            . . # # #
-            . . . # #
-            . . # . #
-            . # . . .
-            # . . . .
+            . . . . #
+            . . . # .
+            # . # . .
+            # # . . .
+            # # # . .
             `)
     }
 }
@@ -105,11 +125,11 @@ function destra_indietro () {
         mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita)
         controllo = 28
         basic.showLeds(`
-            # # # . .
-            # # . . .
-            # . # . .
-            . . . # .
-            . . . . #
+            # . . . .
+            . # . . .
+            . . # . #
+            . . . # #
+            . . # # #
             `)
     }
 }
@@ -119,11 +139,11 @@ function sinistra_avanti () {
         mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita)
         controllo = 12
         basic.showLeds(`
-            # . . . .
-            . # . . .
-            . . # . #
-            . . . # #
-            . . # # #
+            # # # . .
+            # # . . .
+            # . # . .
+            . . . # .
+            . . . . #
             `)
     }
 }
@@ -191,6 +211,7 @@ function robot_Indietro () {
             `)
     }
 }
+let valoreIr = 0
 let controllo = 0
 let velocitaRotazione = 0
 let velocita = 0
@@ -199,31 +220,36 @@ velocitaRotazione = 20
 irRemote.connectInfrared(DigitalPin.P0)
 serial.redirectToUSB()
 basic.forever(function () {
-    serial.writeValue("ir:", irRemote.returnIrButton())
-    if (irRemote.returnIrButton() == 70) {
+    valoreIr = irRemote.returnIrButton()
+    serial.writeValue("ir", valoreIr)
+    if (valoreIr == irRemote.irButton(IrButton.Up)) {
         robot_Avanti()
-    } else if (irRemote.returnIrButton() == 21) {
+    } else if (valoreIr == irRemote.irButton(IrButton.Down)) {
         robot_Indietro()
-    } else if (irRemote.returnIrButton() == 68) {
+    } else if (valoreIr == 68) {
         robot_sinistra()
-    } else if (irRemote.returnIrButton() == 67) {
+    } else if (valoreIr == 67) {
         robot_destra()
-    } else if (irRemote.returnIrButton() == 13) {
+    } else if (valoreIr == 13) {
         robot_ShiftDestra()
-    } else if (irRemote.returnIrButton() == 22) {
+    } else if (valoreIr == 22) {
         robot_ShiftSinistra()
-    } else if (irRemote.returnIrButton() == 90) {
+    } else if (valoreIr == 90) {
         derapata_destra()
-    } else if (irRemote.returnIrButton() == 8) {
+    } else if (valoreIr == 8) {
         derapata_sinistra()
-    } else if (irRemote.returnIrButton() == 25) {
+    } else if (valoreIr == 25) {
         destra_avanti()
-    } else if (irRemote.returnIrButton() == 12) {
+    } else if (valoreIr == 12) {
         sinistra_avanti()
-    } else if (irRemote.returnIrButton() == 94) {
+    } else if (valoreIr == 94) {
         destra_indietro()
-    } else if (irRemote.returnIrButton() == 28) {
+    } else if (valoreIr == 28) {
         sinistra_indietro()
+    } else if (valoreIr == irRemote.irButton(IrButton.Hash)) {
+        incrementaVelocita()
+    } else if (valoreIr == irRemote.irButton(IrButton.Star)) {
+        decrementaVelocita()
     } else {
         robot_Ferma()
     }

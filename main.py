@@ -54,6 +54,14 @@ def derapata_sinistra():
             . . . . .
             . . . . .
             """)
+def decrementaVelocita():
+    global velocita, controllo
+    if controllo != 101:
+        velocita += -5
+        controllo = 101
+        if velocita < 20:
+            velocita = 20
+        basic.show_string("" + str(velocita))
 def robot_Ferma():
     global controllo
     if controllo != 0:
@@ -66,6 +74,9 @@ def robot_Ferma():
             . . # . .
             . . . . .
             """)
+
+
+
 def derapata_destra():
     global controllo
     if controllo != 8:
@@ -79,6 +90,14 @@ def derapata_destra():
             . . . . .
             . . . . .
             """)
+def incrementaVelocita():
+    global velocita, controllo
+    if controllo != 100:
+        velocita += 5
+        controllo = 100
+        if velocita > 100:
+            velocita = 100
+        basic.show_string("" + str(velocita))
 def sinistra_indietro():
     global controllo
     if controllo != 94:
@@ -178,6 +197,7 @@ def robot_Indietro():
             . # # # .
             . . # . .
             """)
+valoreIr = 0
 controllo = 0
 velocitaRotazione = 0
 velocita = 0
@@ -187,31 +207,39 @@ irRemote.connect_infrared(DigitalPin.P0)
 serial.redirect_to_usb()
 
 def on_forever():
-    serial.write_value("ir:", irRemote.return_ir_button())
-    if irRemote.return_ir_button() == 70:
+    global valoreIr
+    valoreIr = irRemote.return_ir_button()
+    serial.write_value("ir", valoreIr)
+    if valoreIr == irRemote.ir_button(IrButton.UP):
         robot_Avanti()
-    elif irRemote.return_ir_button() == 21:
+    elif valoreIr == irRemote.ir_button(IrButton.DOWN):
         robot_Indietro()
-    elif irRemote.return_ir_button() == 68:
+    elif valoreIr == 68:
         robot_sinistra()
-    elif irRemote.return_ir_button() == 67:
+    elif valoreIr == 67:
         robot_destra()
-    elif irRemote.return_ir_button() == 13:
+    elif valoreIr == 13:
         robot_ShiftDestra()
-    elif irRemote.return_ir_button() == 22:
+    elif valoreIr == 22:
         robot_ShiftSinistra()
-    elif irRemote.return_ir_button() == 90:
+    elif valoreIr == 90:
         derapata_destra()
-    elif irRemote.return_ir_button() == 8:
+    elif valoreIr == 8:
         derapata_sinistra()
-    elif irRemote.return_ir_button() == 25:
+    elif valoreIr == 25:
         destra_avanti()
-    elif irRemote.return_ir_button() == 12:
+    elif valoreIr == 12:
         sinistra_avanti()
-    elif irRemote.return_ir_button() == 94:
+    elif valoreIr == 94:
         destra_indietro()
-    elif irRemote.return_ir_button() == 28:
+    elif valoreIr == 28:
         sinistra_indietro()
+    elif valoreIr == irRemote.ir_button(IrButton.HASH):
+        incrementaVelocita()
+    elif valoreIr == irRemote.ir_button(IrButton.STAR):
+        decrementaVelocita()
     else:
         robot_Ferma()
 basic.forever(on_forever)
+
+
