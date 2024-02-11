@@ -28,10 +28,10 @@ function derapata_sinistra () {
 }
 function sinistra () {
     if (controllo != 11) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Back, velocita - 10)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Forward, velocita - 10)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Back, velocita - 10)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Forward, velocita - 10)
         controllo = 11
         basic.showLeds(`
             . . # . .
@@ -62,7 +62,7 @@ function decrementaVelocita () {
         if (velocita < 20) {
             velocita = 20
         }
-        basic.showString("" + velocita)
+        stringaDaVisualizzare = "" + velocita
     }
 }
 function accendiSpegniLed () {
@@ -72,12 +72,10 @@ function accendiSpegniLed () {
             mecanumRobotV2.setLed(LedCount.Left, LedState.ON)
             mecanumRobotV2.setLed(LedCount.Right, LedState.ON)
             luceOn = 1
-            basic.showString("LED ON")
         } else {
             mecanumRobotV2.setLed(LedCount.Left, LedState.OFF)
             mecanumRobotV2.setLed(LedCount.Right, LedState.OFF)
             luceOn = 0
-            basic.showString("LED OFF")
         }
     }
 }
@@ -102,7 +100,7 @@ function incrementaVelocita () {
         if (velocita > 100) {
             velocita = 100
         }
-        basic.showString("" + velocita)
+        stringaDaVisualizzare = "" + velocita
     }
 }
 function shift_destra () {
@@ -197,10 +195,10 @@ function shift_sinistra () {
 }
 function destra () {
     if (controllo != 3) {
-        mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocitaRotazione)
-        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocitaRotazione)
+        mecanumRobotV2.Motor(LR.Upper_left, MD.Forward, velocita - 10)
+        mecanumRobotV2.Motor(LR.Upper_right, MD.Back, velocita - 10)
+        mecanumRobotV2.Motor(LR.Lower_left, MD.Forward, velocita - 10)
+        mecanumRobotV2.Motor(LR.Lower_right, MD.Back, velocita - 10)
         controllo = 3
         basic.showLeds(`
             . . # . .
@@ -227,15 +225,15 @@ function robot_Indietro () {
             `)
     }
 }
+let stringaAppoggio = ""
 let valoreIr2 = 0
+let stringaDaVisualizzare = ""
 let controllo = 0
-let velocitaRotazione = 0
 let velocita = 0
 let luceOn = 0
 let ledDaVisualizzare = 0
 luceOn = 0
 velocita = 50
-velocitaRotazione = 40
 irRemote.connectInfrared(DigitalPin.P0)
 serial.redirectToUSB()
 basic.forever(function () {
@@ -273,5 +271,12 @@ basic.forever(function () {
         accendiSpegniLed()
     } else {
         fermo()
+    }
+})
+control.inBackground(function () {
+    if (stringaDaVisualizzare != "") {
+        stringaAppoggio = stringaDaVisualizzare
+        stringaDaVisualizzare = ""
+        basic.showString(stringaAppoggio)
     }
 })

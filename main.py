@@ -11,36 +11,6 @@ def destra_avanti():
             . # . . .
             # . . . .
             """)
-def robot_Avanti():
-    global controllo
-    if controllo != 2:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        controllo = 2
-        basic.show_leds("""
-            . . # . .
-            . # # # .
-            # . # . #
-            . . # . .
-            . . # . .
-            """)
-def robot_destra():
-    global controllo
-    if controllo != 3:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocitaRotazione)
-        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.BACK, velocitaRotazione)
-        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.FORWARD, velocitaRotazione)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.BACK, velocitaRotazione)
-        controllo = 3
-        basic.show_leds("""
-            . . # . .
-            . # . . .
-            # # # # #
-            . # . . .
-            . . # . .
-            """)
 def derapata_sinistra():
     global controllo
     if controllo != 4:
@@ -54,15 +24,22 @@ def derapata_sinistra():
             . . . . .
             . . . . .
             """)
-def decrementaVelocita():
-    global velocita, controllo
-    if controllo != 5:
-        velocita += 0 - 5
-        controllo = 5
-        if velocita < 20:
-            velocita = 20
-        basic.show_string("" + str(velocita))
-def robot_Ferma():
+def sinistra():
+    global controllo
+    if controllo != 11:
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.BACK, velocita - 10)
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.FORWARD, velocita - 10)
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita - 10)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita - 10)
+        controllo = 11
+        basic.show_leds("""
+            . . # . .
+            . . . # .
+            # # # # #
+            . . . # .
+            . . # . .
+            """)
+def fermo():
     global controllo
     if controllo != 0:
         controllo = 0
@@ -74,6 +51,26 @@ def robot_Ferma():
             . . # . .
             . . . . .
             """)
+def decrementaVelocita():
+    global velocita, controllo, stringaDaVisualizzare
+    if controllo != 5:
+        velocita += 0 - 5
+        controllo = 5
+        if velocita < 20:
+            velocita = 20
+        stringaDaVisualizzare = "" + str(velocita)
+def accendiSpegniLed():
+    global controllo, luceOn
+    if controllo != 15:
+        controllo = 15
+        if luceOn == 0:
+            mecanumRobotV2.set_led(LedCount.LEFT, LedState.ON)
+            mecanumRobotV2.set_led(LedCount.RIGHT, LedState.ON)
+            luceOn = 1
+        else:
+            mecanumRobotV2.set_led(LedCount.LEFT, LedState.OFF)
+            mecanumRobotV2.set_led(LedCount.RIGHT, LedState.OFF)
+            luceOn = 0
 def derapata_destra():
     global controllo
     if controllo != 6:
@@ -88,13 +85,28 @@ def derapata_destra():
             . . . . .
             """)
 def incrementaVelocita():
-    global velocita, controllo
+    global velocita, controllo, stringaDaVisualizzare
     if controllo != 7:
         velocita += 5
         controllo = 7
         if velocita > 100:
             velocita = 100
-        basic.show_string("" + str(velocita))
+        stringaDaVisualizzare = "" + str(velocita)
+def shift_destra():
+    global controllo
+    if controllo != 13:
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.BACK, velocita)
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
+        controllo = 13
+        basic.show_leds("""
+            . . # . .
+            . # . . .
+            # . # # #
+            . # . . .
+            . . # . .
+            """)
 def sinistra_indietro():
     global controllo
     if controllo != 8:
@@ -121,6 +133,21 @@ def destra_indietro():
             . . . # #
             . . # # #
             """)
+def avanti():
+    global controllo
+    if controllo != 2:
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.FORWARD, velocita)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
+        controllo = 2
+        basic.show_leds("""
+            . . # . .
+            . # # # .
+            # . # . #
+            . . # . .
+            . . # . .
+            """)
 def sinistra_avanti():
     global controllo
     if controllo != 10:
@@ -134,22 +161,7 @@ def sinistra_avanti():
             . . . # .
             . . . . #
             """)
-def robot_sinistra():
-    global controllo
-    if controllo != 11:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.BACK, velocitaRotazione)
-        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.FORWARD, velocitaRotazione)
-        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocitaRotazione)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocitaRotazione)
-        controllo = 11
-        basic.show_leds("""
-            . . # . .
-            . . . # .
-            # # # # #
-            . . . # .
-            . . # . .
-            """)
-def robot_ShiftSinistra():
+def shift_sinistra():
     global controllo
     if controllo != 12:
         mecanumRobotV2.motor(LR.UPPER_LEFT, MD.BACK, velocita)
@@ -164,18 +176,18 @@ def robot_ShiftSinistra():
             . . . # .
             . . # . .
             """)
-def robot_ShiftDestra():
+def destra():
     global controllo
-    if controllo != 13:
-        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita)
-        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.BACK, velocita)
-        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.BACK, velocita)
-        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.FORWARD, velocita)
-        controllo = 13
+    if controllo != 3:
+        mecanumRobotV2.motor(LR.UPPER_LEFT, MD.FORWARD, velocita - 10)
+        mecanumRobotV2.motor(LR.UPPER_RIGHT, MD.BACK, velocita - 10)
+        mecanumRobotV2.motor(LR.LOWER_LEFT, MD.FORWARD, velocita - 10)
+        mecanumRobotV2.motor(LR.LOWER_RIGHT, MD.BACK, velocita - 10)
+        controllo = 3
         basic.show_leds("""
             . . # . .
             . # . . .
-            # . # # #
+            # # # # #
             . # . . .
             . . # . .
             """)
@@ -194,29 +206,15 @@ def robot_Indietro():
             . # # # .
             . . # . .
             """)
-def accendiSpegni():
-    global controllo, luceOn
-    if controllo != 15:
-        controllo = 15
-        if luceOn == 0:
-            mecanumRobotV2.set_led(LedCount.LEFT, LedState.ON)
-            mecanumRobotV2.set_led(LedCount.RIGHT, LedState.ON)
-            luceOn = 1
-            basic.show_string("LED ON")
-        else:
-            mecanumRobotV2.set_led(LedCount.LEFT, LedState.OFF)
-            mecanumRobotV2.set_led(LedCount.RIGHT, LedState.OFF)
-            luceOn = 0
-            basic.show_string("LED OFF")
+stringaAppoggio = ""
 valoreIr2 = 0
 controllo = 0
-velocitaRotazione = 0
 velocita = 0
 luceOn = 0
+stringaDaVisualizzare = ""
+ledDaVisualizzare = 0
 luceOn = 0
 velocita = 50
-velocitaRotazione = 40
-ledDaVisualizzare = 0
 irRemote.connect_infrared(DigitalPin.P0)
 serial.redirect_to_usb()
 
@@ -225,17 +223,17 @@ def on_forever():
     valoreIr2 = irRemote.return_ir_button()
     serial.write_value("ir", valoreIr2)
     if valoreIr2 == irRemote.ir_button(IrButton.UP):
-        robot_Avanti()
+        avanti()
     elif valoreIr2 == irRemote.ir_button(IrButton.DOWN):
         robot_Indietro()
     elif valoreIr2 == irRemote.ir_button(IrButton.LEFT):
-        robot_sinistra()
+        sinistra()
     elif valoreIr2 == irRemote.ir_button(IrButton.RIGHT):
-        robot_destra()
+        destra()
     elif valoreIr2 == irRemote.ir_button(IrButton.NUMBER_3):
-        robot_ShiftDestra()
+        shift_destra()
     elif valoreIr2 == irRemote.ir_button(IrButton.NUMBER_1):
-        robot_ShiftSinistra()
+        shift_sinistra()
     elif valoreIr2 == irRemote.ir_button(IrButton.NUMBER_9):
         derapata_destra()
     elif valoreIr2 == irRemote.ir_button(IrButton.NUMBER_7):
@@ -253,7 +251,15 @@ def on_forever():
     elif valoreIr2 == irRemote.ir_button(IrButton.STAR):
         decrementaVelocita()
     elif valoreIr2 == irRemote.ir_button(IrButton.OK):
-        accendiSpegni()
+        accendiSpegniLed()
     else:
-        robot_Ferma()
+        fermo()
 basic.forever(on_forever)
+
+def on_in_background():
+    global stringaAppoggio, stringaDaVisualizzare
+    if stringaDaVisualizzare != "":
+        stringaAppoggio = stringaDaVisualizzare
+        stringaDaVisualizzare = ""
+        basic.show_string(stringaAppoggio)
+control.in_background(on_in_background)
